@@ -149,11 +149,5 @@ d3 <- d2 |>
     row_number = row_number()
   ) 
 
-
-d3 |> 
-  filter(org_name |> str_detect("ODSP")) |> 
-  select(matches())
-d2 |> filter(OBJECTID %in% c(50, 51, 173)) |> 
-  select(pub_name, org_name)
 d3 |> 
   write_csv("data/211-community-assets_autofill-3.csv", na = "")
