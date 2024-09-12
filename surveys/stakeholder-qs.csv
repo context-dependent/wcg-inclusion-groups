@@ -1,0 +1,92 @@
+survey_section,question_number,api_name,question_prompt,question_type,response_options,logic
+Organization Information,,respondent_inits,What are your first and last initials?,TEXT,VALIDATE(^[A-Z]{2}$),
+Organization Information,,respondent_yob,What is your year of birth?,MC,1900-2008,
+Organization Information,,org_identity,What is the name of the organization for which you work?,TEXT,AUTOFILL(STAKEHOLDER_CONTACT_LIST),
+Organization Information,,org_role_primary,What is the primary role of your organization?,MC,"Providing social services;
+Delivering education or training to jobseekers;
+Delivering education or training to employers;
+Coordinating community resources;
+Advocating on behalf of a marginalized group;",
+Organization Information,,org_role_outbound,Does your organization refer clients to EO services?,MC,"Yes;
+No;",
+Organization Information,,org_role_inbound,Do EO service providers refer clients to your organization?,MC,"Yes;
+No;",
+Organization Information,,org_role_ig_focus,Which of the following groups does your organization typically serve?,SA,"Francophones;
+Newcomers;
+Persons experiencing disabilities;
+Racialized individuals;
+Indigenous persons;
+Youth with higher support needs;
+None of the above;",
+Perspectives on EO,,eo_approval_outbound,"Based on your past experiences of referring clients to EO, how much do you agree or disagree with the following statements?
+
+Referrals to EO tend to improve our clients’ chances of securing employment;
+EO service providers tend to understand and accommodate our clients’ needs; 
+Our clients tend to be optimistic about the outcome of their EO service journey;
+Navigating from referral to enrollment in EO services tends to be smooth for our clients;",LIKERT,"Strongly Disagree;
+Disagree;
+Neutral;
+Agree;
+Strongly Agree;","SHOW_IF(
+  org_role_outbound IS “Yes”
+)"
+Perspectives on EO,,eo_approval_inbound,"Based on your past experiences of receiving inbound referrals from EO providers, how much do you agree or disagree with the following statements?
+
+Clients referred by EO providers tend to have needs for which our services are an appropriate fit;
+Clients referred by EO providers tend to have a clear sense of what our organization does and why they have been referred;
+EO providers should refer more clients to our organization; ",LIKERT,"Strongly Disagree; 
+Disagree; 
+Neutral; 
+Agree; 
+Strongly Agree;","SHOW_IF(
+  org_role_inbound IS “Yes”
+ )"
+Inclusion Group Needs,,ig_barriers_*,"Based on your experiences working with * individuals, to what degree do each of the following barriers negatively impact their employment prospects?
+
+Discrimination against * in hiring practices;
+Discrimination against * on the job (such as harrassment, exclusion, double-standards);
+Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services);
+Homelessness or housing instability;
+Food insecurity;
+Lack of appropriate, accessible transit;",LIKERT,"No Impact;
+Low Impact;
+High Impact;","LOOP(
+  FOR_EACH * IN org_role_ig_focus IS “Yes”
+)"
+Inclusion Group Needs,,ig_job_success_factors_*,"Based on your experiences working with * individuals, how important are each of the following job features to their sustainable employment?
+
+Accommodations;
+Remote work;
+Flexible hours;
+Skills development opportunities (such as coaching, mentoring, and training);
+Employer training on awareness, diversity, and inclusion;",LIKERT,"Absolutely Necessary;
+Very Important;
+Somewhat Important;
+Not Important;","LOOP(
+  FOR_EACH * IN org_role_ig_focus IS “Yes”
+)"
+Inclusion Group Needs,,ig_social_supports_*,"Based on your experiences working with * individuals, how important do each of the following social supports tend to be for their sustainable employment?
+
+Childcare benefits;
+Transportation subsidies;
+Treatment for mental health and / or addictions;
+English language training;
+Essential skills training;
+Support for disclosing needs and requesting accommodations;",LIKERT,"Absolutely Necessary;
+Very Important;
+Somewhat Important;
+Not Important;","LOOP(
+  FOR_EACH * IN org_role_ig_focus IS “Yes”
+)"
+Inclusion Group Needs,,ig_orgs_engage_*,"Which organizations are best suited to connect * job seekers to EO services? 
+(For up to 5 organizations, start typing in the fields below and select from the provided list of suggestions)",TEXT,AUTOFILL(211_COMMUNITY_ASSETS),"LOOP(
+  FOR_EACH * IN org_role_ig_focus IS “Yes”
+)"
+Inclusion Group Needs,,ig_orgs_start_*,"Which organizations are best suited to assist * job seekers in their job search? 
+(For up to 5 organizations, start typing in the fields below and select from the provided list of suggestions)",TEXT,AUTOFILL(211_COMMUNITY_ASSETS),"LOOP(
+  FOR_EACH * IN org_role_ig_focus IS “Yes”
+)"
+Inclusion Group Needs,,ig_orgs_succeed_*,"Which organizations are best suited to support * job seekers in maintaining successful employment? 
+(For up to 5 organizations, start typing in the fields below and select from the provided list of suggestions)",TEXT,AUTOFILL(211_COMMUNITY_ASSETS),"LOOP(
+  FOR_EACH * IN org_role_ig_focus IS “Yes”
+)"
